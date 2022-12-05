@@ -16,7 +16,7 @@ $result = Measure-Command {
 foreach ($directory in $directories) {
   # Zoeken!!!
   Write-Host "Searching in directory $directory"
-  foreach ($file in (Get-ChildItem -Path $directory -Recurse -Filter "*.exe")) {
+  foreach ($file in (Get-ChildItem -Path $directory -Recurse -Filter "*.exe" -ErrorAction SilentlyContinue)) {
     # Controlleren of bestanden geen 0 bevatten. In deze .exe bestanden zijn wij niet geïnteresseerd. 
     if ($file.Name -notmatch "0") {
       $version = (get-command $file.FullName).FileVersionInfo.FileVersion

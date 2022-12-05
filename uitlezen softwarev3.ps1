@@ -1,5 +1,5 @@
 # De directories die we doorzoeken op .exe files.
-$directories = "C:\Program Files (x86)\CLB", "C:\Unicare", "C:\UniVOS"
+$directories = "C:\Program Files (x86)\CLB", "C:\Unicare", "C:\UniVOS", "C:\Program Files\2BrightSparks\SyncBackPro\"
 $data = @()
 $Computername = hostname
 $date = Get-Date

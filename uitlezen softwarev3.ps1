@@ -1,6 +1,6 @@
 # De directories die we doorzoeken op .exe files, het is mogelijk directories toe te voegen.
 $directories = "C:\Program Files (x86)\CLB", "C:\Unicare", "C:\UniVOS", "C:\Program Files\2BrightSparks\SyncBackPro\"
-$excludeFolders = "C:\Unicare\Setup"
+$excludeFolders = @("Setup")
 $data = @()
 $Computername = hostname
 $date = Get-Date
@@ -13,11 +13,11 @@ Write-Host "Searching for software versions in $directories"
 # Hiermee kunnen we de totale executie tijd berekenen
 $result = Measure-Command {
 
-# Loop die loop
+# Loop die loop 
 foreach ($directory in $directories) {
   # Zoeken!!!
   Write-Host "Searching in directory $directory"
-  foreach ($file in (Get-ChildItem -Path $directory -Exclude $excludeFolders -Recurse -Filter "*.exe" -ErrorAction SilentlyContinue)) {
+  foreach ($file in (Get-ChildItem -Path $directory -Exclude $excludeFolders -Recurse -Filter "*.exe" -ErrorAction SilentlyContinue | ? {$_ -notmatch $excludeFolders })) {
     # Controlleren of bestanden geen 0 bevatten. In deze .exe bestanden zijn wij niet geïnteresseerd. 
     if ($file.Name -notmatch "0") {
       $version = (get-command $file.FullName).FileVersionInfo.FileVersion
@@ -33,7 +33,7 @@ foreach ($directory in $directories) {
 }
 
 # Data exporteren
-#New-item -Path c:\Temp\ -ItemType Directory
+# New-item -Path c:\Temp\ -ItemType Directory
 $Temppad = "C:\Temp\"
     
 If (!(test-path $Temppad))

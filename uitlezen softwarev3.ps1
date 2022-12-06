@@ -18,7 +18,7 @@ foreach ($directory in $directories) {
   # Zoeken!!!
   Write-Host "Searching in directory $directory"
   foreach ($file in (Get-ChildItem -Path $directory -Exclude $excludeFolders -Recurse -Filter "*.exe" -ErrorAction SilentlyContinue | ? {$_ -notmatch $excludeFolders })) {
-    # Controlleren of bestanden geen 0 bevatten. In deze .exe bestanden zijn wij niet geïnteresseerd. 
+    # Controleren of bestanden geen 0 bevatten. In deze .exe bestanden zijn wij niet geïnteresseerd. 
     if ($file.Name -notmatch "0") {
       $version = (get-command $file.FullName).FileVersionInfo.FileVersion
       # Gooi alles in een array

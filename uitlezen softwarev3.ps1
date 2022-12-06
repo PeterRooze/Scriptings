@@ -1,5 +1,6 @@
 # De directories die we doorzoeken op .exe files, het is mogelijk directories toe te voegen.
 $directories = "C:\Program Files (x86)\CLB", "C:\Unicare", "C:\UniVOS", "C:\Program Files\2BrightSparks\SyncBackPro\"
+$excludeFolders = "C:\Unicare\setup"
 $data = @()
 $Computername = hostname
 $date = Get-Date
@@ -16,7 +17,7 @@ $result = Measure-Command {
 foreach ($directory in $directories) {
   # Zoeken!!!
   Write-Host "Searching in directory $directory"
-  foreach ($file in (Get-ChildItem -Path $directory -Recurse -Filter "*.exe" -ErrorAction SilentlyContinue)) {
+  foreach ($file in (Get-ChildItem -Path $directory -Recurse -Filter "*.exe" -Exclude $excludeFolders -ErrorAction SilentlyContinue)) {
     # Controlleren of bestanden geen 0 bevatten. In deze .exe bestanden zijn wij niet geïnteresseerd. 
     if ($file.Name -notmatch "0") {
       $version = (get-command $file.FullName).FileVersionInfo.FileVersion

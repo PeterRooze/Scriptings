@@ -1,4 +1,4 @@
-# De directories die we doorzoeken op .exe files.
+# De directories die we doorzoeken op .exe files, het is mogelijk directories toe te voegen.
 $directories = "C:\Program Files (x86)\CLB", "C:\Unicare", "C:\UniVOS", "C:\Program Files\2BrightSparks\SyncBackPro\"
 $data = @()
 $Computername = hostname
@@ -9,7 +9,7 @@ $filename = $("Geinstalleerde_Software_" +$Computername + "_" + $formattedDate )
 # Wat doen we eigenlijk
 Write-Host "Searching for software versions in $directories"
 
-# Kunnen de totale executie tijd mee berekenen
+# Hiermee kunnen we de totale executie tijd berekenen
 $result = Measure-Command {
 
 # Loop die loop
@@ -38,6 +38,7 @@ $data | Out-File -FilePath "c:\Temp\$filename.txt"
 $data | Export-Csv -Path "c:\Temp\$filename.csv" -NoTypeInformation -UseCulture 
 }
 
+# Executie tijd
 Write-Host "Elapsed time: $($result.TotalSeconds) seconds"
 
 # hit die enter knop dan

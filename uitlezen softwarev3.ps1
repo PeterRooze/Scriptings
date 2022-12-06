@@ -1,6 +1,6 @@
 # De directories die we doorzoeken op .exe files, het is mogelijk directories toe te voegen.
 $directories = "C:\Program Files (x86)\CLB", "C:\Unicare", "C:\UniVOS", "C:\Program Files\2BrightSparks\SyncBackPro\"
-$excludeFolders = "C:\Unicare\setup"
+$excludeFolders = "C:\Unicare\Setup"
 $data = @()
 $Computername = hostname
 $date = Get-Date
@@ -33,6 +33,14 @@ foreach ($directory in $directories) {
 }
 
 # Data exporteren
+#New-item -Path c:\Temp\ -ItemType Directory
+$Temppad = "C:\Temp\"
+    
+If (!(test-path $Temppad))
+{
+    md $Temppad
+}
+Write-Host "Excluded folders: $excludeFolders"
 Write-Host "Exporting data to c:\Temp\$filename.txt"
 Write-Host "Exporting data to c:\Temp\$filename.csv"
 $data | Out-File -FilePath "c:\Temp\$filename.txt"

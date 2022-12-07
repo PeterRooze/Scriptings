@@ -33,11 +33,12 @@ $result = Measure-Command {
   }
 
   # Data exporteren
-  # New-item -Path c:\Temp\ -ItemType Directory
+  # Als Temp map nog niet bestaat maken we $Temppad
   $Temppad = "C:\Temp\"  
   If (!(test-path $Temppad)) {
     mkdir $Temppad
   }
+  
   Write-Host "Excluded folders: $excludeFolders"
   Write-Host "Exporting data to c:\Temp\$filename.txt"
   Write-Host "Exporting data to c:\Temp\$filename.csv"
